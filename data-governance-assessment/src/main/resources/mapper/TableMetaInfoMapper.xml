@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.dga.meta.mapper.TableMetaInfoMapper">
+
+    <!-- 自定义结果映射 -->
+    <!-- autoMapping=true 意味着框架自动将下划线对应到驼峰 -->
+    <!-- type 是bean全名-->
+    <resultMap id="table_meta_info_with_extra_result_map" type="com.atguigu.dga.meta.bean.TableMetaInfo" autoMapping="true">
+        <!-- 因为开起了自动对应，下面的属性是要特殊处理的 -->
+        <!--前是数据库字段 ， 后是bean中属性-->
+        <id column="ti_id" property="id" />
+        <result column="ti_create_time" property="createTime"/>
+        <result column="ti_update_time" property="updateTime"/>
+
+        <!--下面则是如何处理嵌套类的，数据库中的一部分属性是嵌套类中的属性 用如下方法 -->
+        <!--嵌套类也可以用 autoMapping=true-->
+        <!-- association 要被框起来 -->
+        <!--property 是bean中的属性名-->
+        <!--javaType 是bean全名-->
+        <association property="tableMetaInfoExtra" javaType="com.atguigu.dga.meta.bean.TableMetaInfoExtra" autoMapping="true">
+            <id column="te_id" property="id"/>
+            <result column="te_create_time"  property="createTime"/>
+            <result column="te_update_time" property="updateTime"/>
+        </association>
+    </resultMap>
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.atguigu.dga.meta.bean.TableMetaInfo">
+        <id column="id" property="id" />
+        <result column="table_name" property="tableName" />
+        <result column="schema_name" property="schemaName" />
+        <result column="col_name_json" property="colNameJson" />
+        <result column="partition_col_name_json" property="partitionColNameJson" />
+        <result column="table_fs_owner" property="tableFsOwner" />
+        <result column="table_parameters_json" property="tableParametersJson" />
+        <result column="table_comment" property="tableComment" />
+        <result column="table_fs_path" property="tableFsPath" />
+        <result column="table_input_format" property="tableInputFormat" />
+        <result column="table_output_format" property="tableOutputFormat" />
+        <result column="table_row_format_serde" property="tableRowFormatSerde" />
+        <result column="table_create_time" property="tableCreateTime" />
+        <result column="table_type" property="tableType" />
+        <result column="table_bucket_cols_json" property="tableBucketColsJson" />
+        <result column="table_bucket_num" property="tableBucketNum" />
+        <result column="table_sort_cols_json" property="tableSortColsJson" />
+        <result column="table_size" property="tableSize" />
+        <result column="table_total_size" property="tableTotalSize" />
+        <result column="table_last_modify_time" property="tableLastModifyTime" />
+        <result column="table_last_access_time" property="tableLastAccessTime" />
+        <result column="fs_capcity_size" property="fsCapcitySize" />
+        <result column="fs_used_size" property="fsUsedSize" />
+        <result column="fs_remain_size" property="fsRemainSize" />
+        <result column="assess_date" property="assessDate" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+</mapper>
